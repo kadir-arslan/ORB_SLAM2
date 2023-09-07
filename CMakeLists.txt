@@ -10,8 +10,8 @@ MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
 SET(CMAKE_CXX_COMPILER clang++)
 SET(CMAKE_C_COMPILER clang)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3 -march=native")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall  -O3 -march=native ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall   -O3 -march=native")
 
 # Check C++11 or C++0x support
 include(CheckCXXCompilerFlag)
@@ -38,6 +38,7 @@ endif()
 
 find_package(Eigen3 3.1.0 REQUIRED NO_MODULE)
 find_package(Pangolin REQUIRED)
+find_package(g2o REQUIRED)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
@@ -75,7 +76,14 @@ ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
-${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
+g2o::core
+g2o::stuff
+g2o::solver_eigen
+g2o::solver_dense
+g2o::types_sim3
+g2o::types_sba
+g2o::types_slam3d
+g2o::types_slam3d_addons
 )
 
 # Build examples
